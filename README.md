@@ -91,7 +91,7 @@ iograft_env -e blender3 -c blender
 
 ## iograft Add-On for Blender
 
-The iograft Add-On for Blender allows iograft to be run from inside an interactive Blender session. The add-on registers three operators for controlling iograft as well as an iograft panel in the `3D View > Tools` menu.
+The iograft Add-On for Blender allows iograft to be run from inside an interactive Blender session. The add-on registers three operators for controlling iograft as well as an iograft panel in the `3D View > Tool` menu.
 
 To install the Add-On either install manually from Blender's Preferences > Add-ons panel, or copy the iograftblender.py script from this repository to your Blender addons directory.
 
