@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+BASEDIR=$(dirname "$0")
+
+# Start Blender in background mode passing in the subcore python script to
+# execute.
+Blender --background --python-use-system-env --python "$BASEDIR/iogblenderpy_subcore.py" -- "$@"
