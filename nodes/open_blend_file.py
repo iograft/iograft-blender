@@ -10,14 +10,14 @@ class OpenFileBlender(iograft.Node):
     """
     Open an exiting Blend file.
     """
-    filename = iograft.InputDefinition("filename", iobasictypes.Path())
-    out_filename = iograft.OutputDefinition("filename", iobasictypes.Path())
+    filepath = iograft.InputDefinition("filepath", iobasictypes.Path())
+    out_filepath = iograft.OutputDefinition("filepath", iobasictypes.Path())
 
     @classmethod
     def GetDefinition(cls):
-        node = iograft.NodeDefinition("open_file_blender")
-        node.AddInput(cls.filename)
-        node.AddOutput(cls.out_filename)
+        node = iograft.NodeDefinition("open_blend_file")
+        node.AddInput(cls.filepath)
+        node.AddOutput(cls.out_filepath)
         return node
 
     @staticmethod
@@ -25,13 +25,13 @@ class OpenFileBlender(iograft.Node):
         return OpenFileBlender()
 
     def Process(self, data):
-        filename = iograft.GetInput(self.filename, data)
+        filepath = iograft.GetInput(self.filepath, data)
 
         # Open the file.
-        bpy.ops.wm.open_mainfile(filepath=filename)
+        bpy.ops.wm.open_mainfile(filepath=filepath)
 
-        out_filename = bpy.data.filepath
-        iograft.SetOutput(self.out_filename, data, out_filename)
+        out_filepath = bpy.data.filepath
+        iograft.SetOutput(self.out_filepath, data, out_filepath)
 
 
 def LoadPlugin(plugin):
