@@ -14,7 +14,7 @@ Below are the steps required to setup a new environment in iograft for executing
 6. Add the directory containing the Blender executable to the **Path**. (i.e. `C:/Program Files/Blender Foundation/Blender 3.2`).
 7. Depending on the version of Blender, update the **Python Path** entry for `...\iograft\python39` by switching "python39" to the directory for the correct version of Python (for Blender 3, this is "python310").
 
-<details><summary>Example Nuke environment JSON</summary>
+<details><summary>Example Blender environment JSON</summary>
 <p>
 
 ```json
