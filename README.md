@@ -83,7 +83,7 @@ def unregister():
 
 ### iograft_env
 
-The second method for launching Blender so iograft can be used is via `iograft_env`. iograft_env first initializes all of the environment variables contained within tje environment JSON and then launches the given command (the Blender executable in the example below).
+The second method for launching Blender so iograft can be used is via `iograft_env`. iograft_env first initializes all of the environment variables contained within the environment JSON and then launches the given command (the Blender executable in the example below).
 
 ```bat
 iograft_env -e blender3 -c blender
