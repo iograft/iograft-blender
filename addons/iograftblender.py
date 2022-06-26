@@ -69,40 +69,6 @@ class IograftPanel(bpy.types.Panel):
         row.operator("iograft.launch_ui")
 
 
-class BlenderMainThreadCore(iograft.MainThreadCore):
-    """
-    TODO: This class is temporary pending a change in the iograft.py module
-    that allows the "ProcessReadyNodes" function to not set a "timeout" for
-    retrieving nodes. The base implementation waits 1 second for new nodes
-    to be added to the queue for processing. This is a problem in Blender
-    because we call this function from a modal operator that needs to
-    execute as quickly as possible.
-    """
-    def __init__(self):
-        super(BlenderMainThreadCore, self).__init__()
-
-    def _GetAndExecuteQueuedNode(self):
-        """
-        This is the one function we are overriding to prevent the "wait"
-        for queued nodes to arrive. If no nodes exist in the queue, exit
-        immediately.
-        """
-        try:
-            node_creator, data_block, result_event = \
-                                            self.work_queue.get(False)
-        except queue.Empty:
-            return False
-
-        try:
-            iograft._ExecuteNode(node_creator, data_block)
-        except Exception:
-            result_event.setException(sys.exc_info())
-
-        result_event.set()
-        self.work_queue.task_done()
-        return True
-
-
 def _ProcessQueuedNodes():
     """
     This function is called on a timer when iograft is started within
@@ -117,7 +83,7 @@ def _ProcessQueuedNodes():
         return None
 
     # Process any ready nodes and reset the timer.
-    core.ProcessReadyNodes()
+    core.ProcessReadyNodes(wait_for_work=False)
     return 0.1
 
 
@@ -141,7 +107,7 @@ class StartIograftOperator(bpy.types.Operator):
             core = iograft.GetCore(IOGRAFT_BLENDER_CORE_NAME,
                                    create_if_needed=False)
         except KeyError:
-            core = BlenderMainThreadCore()
+            core = iograft.MainThreadCore()
             iograft.RegisterCore(IOGRAFT_BLENDER_CORE_NAME, core)
 
         # Ensure that the Core's request handler is active.
