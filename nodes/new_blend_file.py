@@ -17,6 +17,7 @@ class NewFileBlender(iograft.Node):
     @classmethod
     def GetDefinition(cls):
         node = iograft.NodeDefinition("new_blend_file")
+        node.SetMenuPath("Blender")
         node.AddInput(cls.use_empty)
         return node
 
